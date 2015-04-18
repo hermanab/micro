@@ -1,0 +1,325 @@
+$icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
+// bower:scss
+@import "../components/bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+// endbower
+
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+body {
+  padding-top: 0;
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* Custom page header */
+.header {
+  border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 10px;
+
+  /* Make the masthead heading the same height as the navigation */
+  h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 40px;
+    padding-bottom: 19px;
+  }
+}
+
+/* Custom page footer */
+.footer {
+  padding-top: 19px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
+}
+
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+  text-align: center;
+  border-bottom: 1px solid #e5e5e5;
+
+  .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+  }
+}
+
+/* Supporting marketing content */
+.marketing {
+  margin: 40px 0;
+
+  p + h4 {
+    margin-top: 28px;
+  }
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+
+  /* Remove the padding we set earlier */
+  .header,
+  .marketing,
+  .footer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  /* Space out the masthead */
+  .header {
+    margin-bottom: 30px;
+  }
+  /* Remove the bottom border on the jumbotron for visual effect */
+  .jumbotron {
+    border-bottom: 0;
+  }
+}
+
+.isolation {
+  font-style: italic;
+}
+
+.atb_label {
+  font-size: 12px;
+  font-style: italic;
+}
+
+.atb {
+  border: 1px solid black;
+
+  table {
+    border-collapse: collapse;
+    border: 1px solid black;
+  }
+
+}
+
+.test {
+  transition: top 0.2s ease-in-out;
+}
+
+.test_selected {
+  background-color: lightyellow;
+}
+
+.isolation.isolation_selected {
+  background-color: aliceblue;
+  font-weight: bold;
+}
+
+.isolation_selected {
+  background-color: aliceblue;
+}
+
+.isolation_active {
+  background-color: lightyellow;
+}
+
+.atb_selected {
+  background-color: darkgrey;
+}
+
+.input_memo {
+  width: 90%;
+}
+
+textarea {
+  height:30px;
+  max-width:480px;
+  width:100%;
+  background:#fff;
+  border-radius:3px;
+  line-height:1em;
+  border:none;
+  box-shadow:0px 0px 1px 1px rgba(0,0,0,0.1);
+  padding:3px;
+  /*-webkit-transition: height 1s ease;
+  -moz-transition: height 1s ease;
+  -ms-transition: height 1s ease;
+  -o-transition: height 1s ease;
+  transition: height 1s ease;*/
+}
+
+.position-fixed {
+  position: fixed;
+}
+
+.order-header {
+  background-color: #b2d5ee;
+  position:absolute;
+  top:0;
+  width: 100%;
+  padding:5px;
+  font-family: verdana;
+  font-size: small;
+}
+
+.order-header.ui-scrollfix {
+  position:fixed;
+  top:0;
+}
+
+.order-body {
+  position: absolute;
+  top:180px;
+  z-index:-1;
+  background-color: #f5f5f5;
+}
+
+.header-table {
+  background-color: #b2d5ee;
+  border:3px;
+  padding:3px;
+}
+
+td.header-label {
+  padding:5px;
+  width:80px;
+  text-align: right;
+  color: black;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+div.header-ĺabel {
+  width:75px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+td.header-content {
+  padding:5px;
+  width:215px;
+  text-align: left;
+  color: #0d3349;
+  background-color: white;
+  border: 3px;
+  border-color: black;
+  white-space: nowrap;
+}
+
+div.header-content {
+  width:210px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+td.header-box {
+  width: 300px;
+}
+
+div.tabset-header {
+  background-color: #b2d5ee;
+  // background-color: red;
+}
+
+li.nav-tabs {
+  background-color: #b2d5ee;
+}
+
+.nav-tabs li a {
+  background-color: lightsalmon;
+}
+
+.nav-tabs li.active a {
+  background-color: salmon;
+  font-weight: bold;
+}
+
+.nav-tabs li.active.selected a {
+  background-color: salmon;
+  font-weight: bold;
+}
+
+.nav-tabs li.pending a {
+  background-color: lightcoral;
+  color: white;
+}
+
+.nav-tabs li.pending.active a {
+  background-color: darkred;
+  font-weight: bold;
+  color: slategray;
+}
+
+.nav-tabs li.validated a {
+  background-color: darkseagreen;
+  color: #f5f5f5;
+}
+
+.nav-tabs li.validated.active a {
+  background-color: forestgreen;
+  font-weight: bold;
+  color: white;
+}
+
+.nav-tabs li.received a {
+  background-color: lightsalmon;
+  color: #f5f5f5;
+}
+
+.nav-tabs li.received.active a {
+  background-color: salmon;
+  font-weight: bold;
+  color: white;
+}
+
+.nav-tabs li.cancelled a {
+  background-color: lightgray;
+  color: #f5f5f5;
+}
+
+.nav-tabs li.cancelled.active a {
+  background-color: darkgray;
+  font-weight: bold;
+  color: white;
+}
+
+.modal-dialog.sl001 {
+  width: 800px;
+}
+
+.modal-content.sl001 {
+}
+
+.tableScroll{
+  width:700px;
+  max-width:700px;
+  overflow-x:scroll;
+}
+
+.table-bordered.tab-isohisto td {
+  text-align: left;
+}
+
+.table-bordered.tab-isohisto td+td {
+  text-align: center;
+}
+
+
+.main-iso {
+  font-weight: bold;
+}
+
+.atb-changed {
+  background-color: indianred;
+  color: #f8f8ff;
+}

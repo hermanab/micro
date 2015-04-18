@@ -1,0 +1,47 @@
+
+<div ng-click="select_test(test)" id="test-{{test.testid.code}}" class="test">
+<div class="row" ng-class="{test_selected:test.selected}" context-menu context-menu-disabled="!test.selected" data-target="menu-test">
+  <!--<div class="col-lg-1 col-md-2 col-sm-3" >
+    <span>
+      <img ng-src="{{testStatusImage(test)}}">
+    </span>
+    <span>{{test.testid.name}}({{test.testid.code}})</span>
+  </div>-->
+  <div class="" style="width:1200px">
+    <table>
+      <tr>
+        <td style="width:300px" valign="top">
+          <span>
+            <img ng-src="{{testStatusImage(test)}}">
+          </span>
+          <span style="font-weight: bold" id="test-{{test.testid.code}}-name">{{test.testid.name}}({{test.testid.code}})</span>
+        </td>
+        <td style="width:300px" valign="top">
+          <ui-select style="width:250px" ng-model="test.valueq" theme="bootstrap" ng-show="!test_readonly(test)">
+            <ui-select-match placeholder="Resultado...">{{$select.selected}}</ui-select-match>
+            <ui-select-choices repeat="result in test_dicresults|filter:$select.search">
+              <span ng-bind-html="result | highlight: $select.search"></span>
+            </ui-select-choices>
+          </ui-select>
+          <span ng-show="test_readonly(test)">{{test.valueq}}</span>
+        </td>
+        <td style="width:750px">
+                 <textarea id="input-{{test.testid.code}}" ng-keypress="autoExpand(test, $event)" ng-model="test.valuetxt" class="input_memo"
+                           ng-show="!test_readonly(test)"/>
+                <span ng-show="test_readonly(test)">{{test.valuetxt}}</span>
+        </td>
+      </tr>
+      <tr>
+        <td/>
+        <td>
+          <span id="comment-{{test.testid.code}}" ng-model="test.comments" class="input_memo" ng-show="test.comments.length > 0">{{test.comments}}</span>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <!--<div class="col-sm-1"><span class="glyphicon glyphicon-plus" aria-hidden="true"  ng-click="selSpecimen()" tooltip="Añadir organismo" ng-show="test.selected && !test_readonly(test)" onmouseover=""></span></div>-->
+</div>
+<div class="row" ng-show="test.isolations.length" ng-class="{isolation_active:test.selected}">
+    <sl-isolation ng-repeat="isolation in test.isolations" ></sl-isolation>
+</div><p></p>
+</div>

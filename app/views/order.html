@@ -1,0 +1,140 @@
+<div id="order-header" class="order-header panel" ui-scrollfix="+0" ng-controller="OrderCtrl">
+  <table class="header-table">
+    <tr>
+      <td class="header-box">
+        <div style="padding:5px">
+        <table width="100%">
+          <tr>
+            <td class="header-label"><div class="header-ĺabel">Petición</div></td>
+            <td class="header-content"><div class="header-content">{{order.idee}} / {{sampleidee}}</div></td>
+          </tr>
+        </table>
+        </div>
+      </td>
+      <td  class="header-box">
+        <div style="padding:5px">
+        <table>
+          <tr>
+            <td class="header-label"><div class="header-ĺabel">Fecha</div></td>
+            <td class="header-content"><div class="header-content">{{order.date}}</div></td>
+          </tr>
+        </table>
+        </div>
+      </td>
+      <td class="header-box">
+        <div style="padding:5px">
+        <table>
+          <tr>
+            <td class="header-label"><div class="header-ĺabel">Tipo</div></td>
+            <td class="header-content"><div class="header-content">{{order.typename}}</div></td>
+          </tr>
+        </table>
+        </div>
+      </td>
+      <td class="header-box">
+        <div style="padding:5px">
+        <table>
+          <tr>
+            <td class="header-label"><div class="header-ĺabel">Hospital</div></td>
+            <td class="header-content"><div class="header-content">{{order.centername}}</div></td>
+          </tr>
+        </table>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div style="padding:5px">
+        <table>
+          <tr>
+            <td class="header-label"><div class="header-ĺabel">Paciente</div></td>
+            <td class="header-content"><div class="header-content">{{order.patfname}} {{order.patlname}} ({{order.patref}})</div></td>
+          </tr>
+        </table>
+        </div>
+      </td>
+      <td>
+        <div style="padding:5px">
+        <table>
+          <tr>
+            <td class="header-label"><div class="header-ĺabel">Sexo/Fch. nac.</div></td>
+            <td class="header-content"><div class="header-content">{{order.patsex}}/{{order.patbirthday}}</div></td>
+          </tr>
+        </table>
+        </div>
+      </td>
+      <td>
+        <div style="padding:5px">
+        <table>
+          <tr>
+            <td class="header-label"><div class="header-ĺabel">Médico</div></td>
+            <td class="header-content"><div class="header-content">{{order.doctorname}}</div></td>
+          </tr>
+        </table>
+        </div>
+      <td>
+        <div style="padding:5px">
+        <table>
+          <tr>
+            <td class="header-label"><div class="header-ĺabel">Servicio</div></td>
+            <td class="header-content"><div class="header-content">{{order.servicename}}</div></td>
+          </tr>
+        </table>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div style="padding:5px">
+        <table>
+          <tr>
+            <td class="header-label"><div class="header-ĺabel">Cama</div></td>
+            <td class="header-content"><div class="header-content">{{order.sl_order.bed}}</div></td>
+          </tr>
+        </table>
+        </div>
+      </td>
+      <td>
+        <div style="padding:5px">
+        <table>
+          <tr>
+            <td  class="header-label"><div class="header-ĺabel">Hosma Obs.</div></td>
+            <td class="header-content"><div class="header-content">{{order.sl_order.hosma_obs}}</div></td>
+          </tr>
+        </table>
+        </div>
+      </td>
+      <td>
+        <div style="padding:5px">
+          <table>
+            <tr>
+              <td class="header-label"><div class="header-ĺabel">Observaciones</div></td>
+              <td class="header-content"><div class="header-content">{{order.sl_order.comments}}</div></td>
+            </tr>
+          </table>
+        </div>
+      </td>
+      <td>
+        <div style="padding:5px">
+          <table>
+            <tr>
+              <td class="header-label"><div class="header-ĺabel">Diagóstic</div></td>
+              <td class="header-content"><div class="header-content">{{order.sl_order.diag}}</div></td>
+            </tr>
+          </table>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <tabset class="tabset-header">
+    <tab ng-repeat="sample in order.samples" heading="{{sample.idee}}.{{sample.descrip}}" class="{{sampleStatusClass(sample)}}"
+         active="sample.active" select="go(sample.idee)"></tab>
+    <tab class="{{statusSectionClass('MICRO2')}}" heading="MICRO 2" select="showSection('MICRO2')" ng-show="hasSection('MICRO2')" active="section.active"></tab>
+  </tabset>
+</div>
+
+<div  class="order-body">
+  <div ui-view></div>
+</div>
+

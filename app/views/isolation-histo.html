@@ -1,0 +1,21 @@
+<div class="modal fade">
+  <div class="modal-dialog sl001">
+    <div class="modal-content sl001">
+      <div class="modal-header">
+        <button type="button" class="close" ng-click="close(false)" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Histórico aislamientos</h4>
+      </div>
+      <div class="modal-body">
+        <p style="font-weight: bold;font-style: italic">{{isolation.specimen.name}}</p>
+        <table class="table-bordered tabScroll tab-isohisto">
+          <tr ng-repeat="isohisto in histo" ng-show="showRow($index)" class="{{classATB(isohisto, $index)}}">
+            <td ng-repeat="data in isohisto track by $index" ng-class="{'main-iso': $index == colMainIso}">{{data}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" ng-click="close(true)" class="btn btn-primary" data-dismiss="modal">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>

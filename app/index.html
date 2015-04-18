@@ -1,0 +1,73 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <base href="/">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="components/angular-hotkeys/build/hotkeys.min.css" />
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="styleSheet" href="components/angular-ui-grid/ui-grid.css"/>
+    <link rel="styleSheet" href="components/angular-ui-select/dist/select.css"/>
+
+    <!-- endbuild -->
+  </head>
+  <body ng-app="microApp">
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <div ui-view></div>
+
+
+    <!-- build:js(./) scripts/vendor.js -->
+    <!-- bower:js -->
+    <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="components/jquery/dist/jquery.js"></script>
+    <script src="components/angular/angular.js"></script>
+    <script src="components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+    <script src="components/angular-animate/angular-animate.js"></script>
+    <script src="components/angular-cookies/angular-cookies.js"></script>
+    <script src="components/angular-resource/angular-resource.js"></script>
+    <script src="components/angular-route/angular-route.js"></script>
+    <script src="components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="components/angular-touch/angular-touch.js"></script>
+    <script src="components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="components/angular-hotkeys/build/hotkeys.min.js"></script>
+    <script src="components/angular-modal-service/dst/angular-modal-service.js"></script>
+    <script src="components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="components/angular-ui-select/dist/select.js"></script>
+    <script src="components/ng-context-menu/dist/ng-context-menu.js"></script>
+    <script src="components/angular-ui-utils/ui-utils.js"></script>
+    <script src="components/jquery-visible/jquery.visible.js"></script>
+        <script src="scripts/app.js"></script>
+        <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/about.js"></script>
+        <script src="scripts/controllers/home.js"></script>
+        <script src="scripts/controllers/sample.js"></script>
+        <script src="scripts/controllers/order.js"></script>
+        <script src="scripts/directives/sltest.js"></script>
+        <script src="scripts/directives/slisolation.js"></script>
+        <script src="scripts/directives/sl_section_result.js"></script>
+        <script src="scripts/controllers/modalspecimen.js"></script>
+        <script src="scripts/controllers/modal-specimen.js"></script>
+        <script src="scripts/controllers/sel-specimen.js"></script>
+        <script src="scripts/controllers/sel-predefined-texts.js"></script>
+        <script src="scripts/controllers/sel-panelatbs.js"></script>
+        <script src="scripts/controllers/sel-atbs.js"></script>
+        <script src="scripts/controllers/test-comment.js"></script>
+        <script src="scripts/controllers/section.js"></script>
+        <script src="scripts/controllers/isolation-histo.js"></script>
+        <script src="scripts/services/focus.js"></script>
+        <!-- endbuild -->
+</body>
+</html>

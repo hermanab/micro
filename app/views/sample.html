@@ -1,0 +1,78 @@
+<div class="container-fluid">
+  <div class="alert alert-danger" ng-show="sample.nc_desc != ''">{{sample.nc_desc}}</div>
+  <div class="alert alert-info" ng-show="sample.comments != ''">{{sample.comments}}</div>
+  <sl-test ng-repeat="test in sample.tests"></sl-test>
+
+</div>
+
+<div class="dropdown position-fixed" id="menu-test">
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a class="pointer" role="menuitem" tabindex="1"
+         ng-click="validateTest()">
+        Validar
+      </a>
+    </li>
+    <li>
+      <a class="pointer" role="menuitem" tabindex="1"
+         ng-click="unvalidateTest()">
+        Desvalidar
+      </a>
+    </li>
+    <li>
+      <a class="pointer" role="menuitem" tabindex="1"
+         ng-click="rerunTest()">
+        Repetir
+      </a>
+    </li>
+    <li>
+      <a class="pointer" role="menuitem" tabindex="1"
+         ng-click="cancelTest()">
+        Cancelar
+      </a>
+    </li>
+    <li>
+      <a class="pointer" role="menuitem" tabindex="1"
+         ng-click="selSpecimen()">
+        Nuevo organismo
+      </a>
+    </li>
+    <li>
+      <a class="pointer" role="menuitem" tabindex="1"
+         ng-click="addTestComment()">
+        Observaciones
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+<div class="dropdown position-fixed" id="menu-isolation">
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a class="pointer" role="menuitem" tabindex="1"
+         ng-click="selPanelATB()">
+        Añadir antibiograma
+      </a>
+    </li>
+    <li>
+      <a class="pointer" role="menuitem" tabindex="1"
+         ng-click="selATB()">
+        Añadir antibiótico
+      </a>
+    </li>
+    <li>
+      <a class="pointer" role="menuitem" tabindex="1"
+         ng-click="deleteIsolation()">
+        Borrar
+      </a>
+    </li>
+    <li>
+      <a class="pointer" role="menuitem" tabindex="1"
+         ng-click="isolationHistory()">
+        Histórico
+      </a>
+    </li>
+  </ul>
+</div>
+

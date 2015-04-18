@@ -1,0 +1,28 @@
+<div id="result-{{result.key}}" >
+  <div class="row">
+    <div class="" style="width:1200px">
+      <table>
+        <tr>
+          <td style="width:300px" valign="top">
+          <span>
+            <img ng-src="{{testStatusImage(result.test)}}">
+          </span>
+            <span style="font-weight: bold" id="result-{{result.test.code}}-name">{{result.test.name}}</span>
+          </td>
+          <td style="width:300px" valign="top">
+            <span>{{result.result.rendered_val}}</span>
+          </td>
+          <td style="width:750px">
+            <span>{{result.result.limits}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td/>
+          <td>
+            <span id="comment-{{result.key}}"></span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

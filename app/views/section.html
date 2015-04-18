@@ -1,0 +1,23 @@
+<div class="container-fluid">
+  <table>
+    <tr>
+      <td style="width:300px" valign="top"><span>Test</span></td>
+      <td style="width:300px" valign="top"><span>Valor</span></td>
+      <td style="width:750px"><span>Valores ref.</span></td>
+    </tr>
+  </table>
+  <sl-section-result ng-repeat="result in results"></sl-section-result>
+  <table ng-show="comments.length > 0">
+    <tr>
+      <td style="width:150px" valign="top">Observaciones:</td>
+      <td style="width:1050px" valign="top">
+        <table>
+          <tr ng-repeat="comment in comments">
+            <td valign="top"><span>{{comment.text}}</span></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+</div>
