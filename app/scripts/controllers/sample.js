@@ -58,7 +58,7 @@ angular.module('microApp')
             console.log($scope.sample.idee+"."+$scope.sample.tests[i].testid.code+" changed");
             changed=true;
           }
-        }
+        };
         if (changed) {
           $scope.save();
         }
