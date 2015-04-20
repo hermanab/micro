@@ -14,7 +14,7 @@
           <span>
             <img ng-src="{{testStatusImage(test)}}">
           </span>
-          <span style="font-weight: bold" id="test-{{test.testid.code}}-name">{{test.testid.name}}({{test.testid.code}})</span>
+          <span style="font-weight: bold" id="test-{{test.testid.code}}-name" ng-class="{test_changed:test.changed}">{{test.testid.name}}({{test.testid.code}})</span>
         </td>
         <td style="width:300px" valign="top">
           <ui-select style="width:250px" ng-model="test.valueq" theme="bootstrap" ng-show="!test_readonly(test)">

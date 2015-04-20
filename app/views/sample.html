@@ -1,6 +1,15 @@
 <div class="container-fluid">
+  <div class="row">
+    <button class="btn-default" ng-click="validateSample()">Validar muestra</button>
+    <button class="btn-default" ng-click="cancelSample()">Cancelar muestra</button>
+    <button class="btn-default" ng-click="selTest()">Añadir prueba</button>
+    <button class="btn-default" ng-click="addNote()">Añadir nota</button>
+    <button class="btn-default" ng-click="viewReport()">Ver informe</button>
+    <button class="btn-default" ng-click="save()">Guardar</button>
+  </div>
   <div class="alert alert-danger" ng-show="sample.nc_desc != ''">{{sample.nc_desc}}</div>
   <div class="alert alert-info" ng-show="sample.comments != ''">{{sample.comments}}</div>
+
   <sl-test ng-repeat="test in sample.tests"></sl-test>
 
 </div>

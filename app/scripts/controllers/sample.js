@@ -13,7 +13,7 @@ angular.module('microApp')
   .controller('SampleCtrl', ['$scope', '$state', '$http', '$stateParams', '$location', '$anchorScroll', 'hotkeys','ModalService', 'focus', 'sl_server',
     function ($scope, $state, $http, $stateParams, $location, $anchorScroll, hotkeys, ModalService, focus, sl_server) {
       var sampleidee=$stateParams.sampleidee;
-      $scope.user = $stateParams.user;
+      // $scope.user = $stateParams.user;
       var url=sl_server+'/wksanal/get_sample/?post={"sampleidee":"$sampleidee", "mode":1}';
       url=url.replace("$server", sl_server);
       url=url.replace("$sampleidee", sampleidee);
@@ -32,19 +32,23 @@ angular.module('microApp')
               var ntests=$scope.sample.tests.length;
               for (var t=0; t < ntests; t++) {
                 var testcode=$scope.sample.tests[t].testid.code;
+                $scope.sample.tests[t].changed=false;
                 $scope.load_test_results(testcode);
               }
               $scope.select_test($scope.sample.tests[0]);
+              $scope.load_tests();
 
           }
       );
 
       $scope.save = function() {
-        url=sl_server+'/exec/wksanal_sample_save/?post={"work_sess_user":"$user"}';
+        url=sl_server+'/exec/wksanal_sample_save/';
         url=url.replace("$user", $scope.user);
         console.log(url);
 
-        $http.post(url, $scope.sample)
+        var post={work_sess_user:$scope.user, sample:$scope.sample};
+
+        $http.post(url, post)
           .success(function(data) {
 
           })
@@ -112,10 +116,22 @@ angular.module('microApp')
       );
     }
 
+    $scope.load_tests = function() {
+      var url = sl_server+'/wksanal/load_sample_tests/?post={"smpcode":"$smpcode"}';
+      url=url.replace("$smpcode", $scope.sample.type.code);
+      $http.get(url)
+        .success(function (data) {
+          $scope.tests_available = data.data;
+          console.log($scope.tests_available);
+        }
+      );
+    }
+
     $scope.load_test_dicresults();
     $scope.load_cfus();
     $scope.load_resistences();
     $scope.load_atbpanels();
+
 
     hotkeys.bindTo($scope)
       .add({
@@ -245,25 +261,30 @@ angular.module('microApp')
         default:
               atb.sens='S';
               break;
+              break;
       }
       $scope.selected_test.changed = true;
       $scope.selected_isolation.changed = true;
+      atb.changed=true;
     }
 
     $scope.change_atb_sens2 = function(sens) {
       $scope.selected_atb.sens=sens;
+      $scope.selected_atb.changed=true;
       $scope.selected_test.changed = true;
       $scope.selected_isolation.changed = true;
     }
 
     $scope.change_atb_report = function(atb) {
       atb.report=!atb.report;
+      $scope.selected_atb.changed=true;
       $scope.selected_test.changed = true;
       $scope.selected_isolation.changed = true;
     }
 
     $scope.change_atb_report2 = function() {
       $scope.selected_atb.report=!$scope.selected_atb.report;
+      $scope.selected_atb.changed=true;
       $scope.selected_test.changed = true;
       $scope.selected_isolation.changed = true;
     }
@@ -454,6 +475,7 @@ angular.module('microApp')
     };
 
     $scope.selSpecimen = function() {
+      if ($scope.selected_test.status >= 4) return;
       ModalService.showModal({
         templateUrl:"views/selSpecimen.html",
         controller: "SpecimenCtrl"
@@ -518,6 +540,7 @@ angular.module('microApp')
         }
       );
     }
+
 
     $scope.selPanelATB = function() {
       ModalService.showModal({
@@ -629,7 +652,66 @@ angular.module('microApp')
       });
     }
 
-    $scope.isolationHistory = function() {
+      $scope.addNote = function() {
+        console.log("addNote");
+
+        $scope.ptexts=$scope.test_results[$scope.selected_test.testid.code];
+        ModalService.showModal({
+          templateUrl:"views/testComment.html",
+          controller: "TestCommentCtrl",
+          inputs: {
+            comment: $scope.selected_test.comments,
+            ptexts: $scope.ptexts
+          }
+
+        }).then(function(modal) {
+          modal.element.modal();
+          modal.close.then(function(result) {
+            if (result != '$cancel$') {
+              $scope.sample.comments=result;
+              console.log("com: "+result);
+            }
+          });
+        });
+      }
+
+      $scope.selTest = function() {
+        ModalService.showModal({
+          templateUrl:"views/selTest.html",
+          controller: "TestsCtrl",
+          inputs: {
+            tests_available: $scope.tests_available
+          }
+        }).then(function(modal) {
+          modal.element.modal();
+          modal.close.then(function(result) {
+            $scope.atb = result;
+            if (result) {
+              console.log("test selected");
+              console.log(result);
+              $scope.addTest(result);
+            }
+          });
+        });
+      }
+
+      $scope.addTest = function(test) {
+        console.log("add Test "+test);
+        var url=sl_server+'/wksanal/load_test/?post={"testcode":"$testcode"}';
+        url=url.replace("$testcode", test);
+        url=url.replace(" ", "%20");
+        $http.get(url)
+          .success(function(data) {
+            var test=data.data;
+            console.log(test);
+            var test_ins={testid:test, pos:1, status:1, valueq:"", valuetxt:"", comments:"", changed:true, isolations:[], id:-1};
+            console.log(test_ins);
+            $scope.sample.tests.push(test_ins);
+          })
+
+      }
+
+      $scope.isolationHistory = function() {
       $scope.showIsolationHisto($scope.selected_isolation);
     };
 
@@ -674,7 +756,7 @@ angular.module('microApp')
       }
       var element = typeof e === 'object' ? e.target : document.getElementById(e);
       var scrollHeight = element.scrollHeight -2; // replace 60 by the sum of padding-top and padding-bottom
-      if (scrollHeight < 36) scrollHeight=36;
+      if (scrollHeight < 42) scrollHeight=42;
       element.style.height =  scrollHeight + "px";
     };
 
@@ -690,7 +772,22 @@ angular.module('microApp')
       return false;
     }
 
-    $scope.unvalidateTest = function() {
+    $scope.validateSample = function() {
+      for (var i=0; i < $scope.sample.tests.length; i++) {
+        console.log($scope.sample.tests[i]);
+        if ($scope.sample.tests[i].status == 3) {
+          $scope.sample.tests[i].status=4;
+        };
+      }
+    }
+
+      $scope.cancelSample = function() {
+        for (var i=0; i < $scope.sample.tests.length; i++) {
+          $scope.sample.tests[i].status=9;
+        }
+      }
+
+      $scope.unvalidateTest = function() {
       var test=$scope.getSelectedTest();
       console.log(test);
       if (!test) return;
@@ -720,6 +817,12 @@ angular.module('microApp')
       if (!test) return;
       test.status=9;
     }
+
+      $scope.viewReport = function() {
+        var url=sl_server+'/repengine/ord_report_spes/?post={"id":"$idee","spes":"MICRO"}';
+        url=url.replace("$idee", $scope.sample.orderid.idee);
+        window.open(url, '_blank', 'fullscreen=yes');
+      }
 
     $scope.doNothing = function() {
 

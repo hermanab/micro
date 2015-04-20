@@ -19,18 +19,24 @@ angular.module('microApp')
   })
   .controller('TestCtrl', function($rootScope, $scope) {
     console.log("TestCtrl "+$scope.test.testid.code);
-    $scope.test.changed=false;
+    // $scope.test.changed=false;
     $scope.$watch('test.valueq', function(newValue, oldValue) {
-      if (newValue != oldValue)
-        $scope.test.changed=true;
+      if (newValue != oldValue) {
+        $scope.test.changed = true;
+        $scope.test.status = 3;
+      }
     })
     $scope.$watch('test.valuetxt', function(newValue, oldValue) {
-      if (newValue != oldValue)
-        $scope.test.changed=true;
+      if (newValue != oldValue) {
+        $scope.test.changed = true;
+        $scope.test.status = 3;
+      }
     })
     $scope.$watch('test.comments', function(newValue, oldValue) {
-      if (newValue != oldValue)
+      if (newValue != oldValue) {
         $scope.test.changed=true;
+        $scope.test.status=3;
+      }
     })
     $scope.$watch('test.status', function(newValue, oldValue) {
       if (newValue != oldValue)

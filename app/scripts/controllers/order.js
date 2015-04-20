@@ -12,6 +12,7 @@ angular.module('microApp')
     var orderid=$stateParams.orderid;
     var sampleidee=$stateParams.sampleidee;
     $scope.user=$stateParams.user;
+    console.log("User: "+$scope.user);
 
     var url=sl_server+'/wksanal/get_order/?post={"orderid":"$orderid", "mode":1}';
     console.log(url);
@@ -32,7 +33,7 @@ angular.module('microApp')
             sample.active=false;
           }
 
-          sample.route="order/"+$scope.order.idee+"/sample/"+sample.idee;
+          sample.route="order/"+$scope.order.idee+"/sample/"+sample.idee+"?user="+$scope.user;
         });
         $scope.loaded=true;
         console.log($scope.order.samples);
@@ -41,7 +42,7 @@ angular.module('microApp')
 
     $scope.go = function(sidee) {
       console.log("go "+sidee);
-      url="#/order/"+$scope.order.idee+"/sample/"+sidee;
+      url="#/order/"+$scope.order.idee+"/sample/"+sidee+"?user="+$scope.user;
       console.log(url);
       $state.go("order.sample", {orderid:$scope.order.idee, sampleidee:sidee});
     };
