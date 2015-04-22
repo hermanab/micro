@@ -42,7 +42,7 @@ angular.module('microApp')
       );
 
       $scope.save = function() {
-        url=sl_server+'/exec/wksanal_sample_save/';
+        url=sl_server+'/wksanal/sample_save/';
         url=url.replace("$user", $scope.user);
         console.log(url);
 
@@ -50,10 +50,30 @@ angular.module('microApp')
 
         $http.post(url, post)
           .success(function(data) {
-
+            // $scope.refresh();
+            console.log(data);
+            $scope.sample=data.data;
+            $scope.selected_test=null;
+            $scope.seleted_isolation=null;
+            $scope.selected_atb=null;
+            var ntests=$scope.sample.tests.length;
+            for (var t=0; t < ntests; t++) {
+              var testcode=$scope.sample.tests[t].testid.code;
+              $scope.sample.tests[t].changed=false;
+              $scope.load_test_results(testcode);
+            }
+            $scope.select_test($scope.sample.tests[0]);
+            $scope.load_tests();
           })
 
       };
+
+      $scope.refresh = function() {
+        url="#/order/"+$scope.sample.orderid.idee+"/sample/"+$scope.sample.idee+"?user="+$scope.user;
+        console.log(url);
+        $state.go("order.sample", {orderid:$scope.sample.orderid.idee, sampleidee:$scope.sample.idee});
+
+      }
 
       $scope.$on("$stateChangeStart", function(event) {
         var changed=false;
@@ -709,6 +729,7 @@ angular.module('microApp')
             $scope.sample.tests.push(test_ins);
           })
 
+        $scope.sample.sync_sl=true;
       }
 
       $scope.isolationHistory = function() {
@@ -779,12 +800,14 @@ angular.module('microApp')
           $scope.sample.tests[i].status=4;
         };
       }
+      $scope.sample.sync_sl=true;
     }
 
       $scope.cancelSample = function() {
         for (var i=0; i < $scope.sample.tests.length; i++) {
           $scope.sample.tests[i].status=9;
         }
+        $scope.sample.sync_sl=true;
       }
 
       $scope.unvalidateTest = function() {
@@ -794,6 +817,7 @@ angular.module('microApp')
       if (test.status == 4 || test.status == 5) {
         test.status=3;
       }
+      $scope.sample.sync_sl=true;
     }
 
     $scope.validateTest = function() {
@@ -802,6 +826,7 @@ angular.module('microApp')
       if (test.status == 3) {
         test.status=4;
       }
+      $scope.sample.sync_sl=true;
     }
 
     $scope.rerunTest = function() {
@@ -810,12 +835,14 @@ angular.module('microApp')
       test.status=1;
       test.valueq='';
       test.valuetxt=''
+      $scope.sample.sync_sl=true;
     }
 
     $scope.cancelTest = function() {
       var test=$scope.getSelectedTest();
       if (!test) return;
       test.status=9;
+      $scope.sample.sync_sl=true;
     }
 
       $scope.viewReport = function() {
