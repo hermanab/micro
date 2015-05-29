@@ -6,7 +6,7 @@
         <table width="100%">
           <tr>
             <td class="header-label"><div class="header-ĺabel">Petición</div></td>
-            <td class="header-content"><div class="header-content">{{order.idee}} / {{sampleidee}}</div></td>
+            <td class="header-content"><div class="header-content">{{order.idee}}</div></td>
           </tr>
         </table>
         </div>
@@ -43,12 +43,12 @@
       </td>
     </tr>
     <tr>
-      <td>
+      <td colspan="2">
         <div style="padding:5px">
         <table>
           <tr>
             <td class="header-label"><div class="header-ĺabel">Paciente</div></td>
-            <td class="header-content"><div class="header-content">{{order.patfname}} {{order.patlname}} ({{order.patref}})</div></td>
+            <td class="header-content2"><div class="header-content2">{{order.patfname}} {{order.patlname}} ({{order.patid}})</div></td>
           </tr>
         </table>
         </div>
@@ -63,27 +63,27 @@
         </table>
         </div>
       </td>
-      <td>
-        <div style="padding:5px">
-        <table>
-          <tr>
-            <td class="header-label"><div class="header-ĺabel">Médico</div></td>
-            <td class="header-content"><div class="header-content">{{order.doctorname}}</div></td>
-          </tr>
-        </table>
-        </div>
-      <td>
-        <div style="padding:5px">
-        <table>
-          <tr>
-            <td class="header-label"><div class="header-ĺabel">Servicio</div></td>
-            <td class="header-content"><div class="header-content">{{order.servicename}}</div></td>
-          </tr>
-        </table>
-        </div>
-      </td>
     </tr>
     <tr>
+      <td>
+        <div style="padding:5px">
+          <table>
+            <tr>
+              <td class="header-label"><div class="header-ĺabel">Médico</div></td>
+              <td class="header-content"><div class="header-content">{{order.doctorname}}</div></td>
+            </tr>
+          </table>
+        </div>
+      <td>
+        <div style="padding:5px">
+          <table>
+            <tr>
+              <td class="header-label"><div class="header-ĺabel">Servicio</div></td>
+              <td class="header-content"><div class="header-content">{{order.servicename}}</div></td>
+            </tr>
+          </table>
+        </div>
+      </td>
       <td>
         <div style="padding:5px">
         <table>
@@ -96,30 +96,32 @@
       </td>
       <td>
         <div style="padding:5px">
-        <table>
-          <tr>
-            <td  class="header-label"><div class="header-ĺabel">Hosma Obs.</div></td>
-            <td class="header-content"><div class="header-content">{{order.sl_order.hosma_obs}}</div></td>
-          </tr>
-        </table>
-        </div>
-      </td>
-      <td>
-        <div style="padding:5px">
-          <table>
-            <tr>
-              <td class="header-label"><div class="header-ĺabel">Observaciones</div></td>
-              <td class="header-content"><div class="header-content">{{order.sl_order.comments}}</div></td>
-            </tr>
-          </table>
-        </div>
-      </td>
-      <td>
-        <div style="padding:5px">
           <table>
             <tr>
               <td class="header-label"><div class="header-ĺabel">Diagnóstico</div></td>
               <td class="header-content"><div class="header-content">{{order.sl_order.diag}} {{user}}</div></td>
+            </tr>
+          </table>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <div style="padding:5px">
+          <table>
+            <tr>
+              <td  class="header-label"><div class="header-ĺabel">Hosma Obs.</div></td>
+              <td class="header-content2"><div class="header-content2">{{order.sl_order.hosma_obs}}</div></td>
+            </tr>
+          </table>
+        </div>
+      </td>
+      <td colspan="2">
+        <div style="padding:5px">
+          <table>
+            <tr>
+              <td class="header-label"><div class="header-ĺabel">Observaciones</div></td>
+              <td class="header-content2"><div class="header-content2">{{order.sl_order.comments}}</div></td>
             </tr>
           </table>
         </div>

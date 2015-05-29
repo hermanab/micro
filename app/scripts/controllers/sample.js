@@ -156,7 +156,7 @@ angular.module('microApp')
     hotkeys.bindTo($scope)
       .add({
         combo: 'r',
-        description: 'Set ATB resistence',
+        description: 'Resistente',
         callback: function() {
           $scope.change_atb_sens2("R");
           $scope.next_atb();
@@ -164,7 +164,7 @@ angular.module('microApp')
       })
       .add({
         combo: 's',
-        description: 'Set ATB sensible',
+        description: 'Sensible',
         callback: function() {
           $scope.change_atb_sens2("S");
           $scope.next_atb();
@@ -172,7 +172,7 @@ angular.module('microApp')
         })
       .add({
         combo: 'i',
-        description: 'Set ATB indetermined',
+        description: 'Indeterminado',
         callback: function() {
           $scope.change_atb_sens2("I");
           $scope.next_atb();
@@ -180,7 +180,7 @@ angular.module('microApp')
       })
       .add({
         combo: 'd',
-        description: 'Set ATB resistence SDD',
+        description: 'SDD resistente',
         callback: function() {
           $scope.change_atb_sens2("SDD");
           $scope.next_atb();
@@ -188,7 +188,7 @@ angular.module('microApp')
       })
       .add({
         combo: '-',
-        description: 'Remove ATB resistence',
+        description: 'Borrar antibiótico',
         callback: function() {
           $scope.change_atb_sens2("");
           $scope.next_atb();
@@ -196,14 +196,14 @@ angular.module('microApp')
       })
       .add({
         combo: 'p',
-        description: 'Set ATB report',
+        description: 'Cambia impresión',
         callback: function() {
           $scope.change_atb_report2();
         }
       })
       .add({
           combo: 'shift+up',
-          description: 'Previous ATB',
+          description: 'ATB previo',
           callback: function() {
             $scope.prev_atb();
             return false;
@@ -211,7 +211,7 @@ angular.module('microApp')
         })
       .add({
         combo: 'shift+down',
-        description: 'Next ATB',
+        description: 'ATB siguiente',
         callback: function() {
           $scope.next_atb();
           return false;
@@ -267,6 +267,7 @@ angular.module('microApp')
       });
 
     $scope.change_atb_sens = function(atb) {
+      if ($scope.selected_test.status >= 4) return;
       console.log(atb);
       switch (atb.sens) {
         case 'S':
@@ -289,6 +290,7 @@ angular.module('microApp')
     }
 
     $scope.change_atb_sens2 = function(sens) {
+      if ($scope.selected_test.status >= 4) return;
       $scope.selected_atb.sens=sens;
       $scope.selected_atb.changed=true;
       $scope.selected_test.changed = true;
@@ -296,6 +298,7 @@ angular.module('microApp')
     }
 
     $scope.change_atb_report = function(atb) {
+      if ($scope.selected_test.status >= 4) return;
       atb.report=!atb.report;
       $scope.selected_atb.changed=true;
       $scope.selected_test.changed = true;
@@ -303,16 +306,41 @@ angular.module('microApp')
     }
 
     $scope.change_atb_report2 = function() {
+      if ($scope.selected_test.status >= 4) return;
       $scope.selected_atb.report=!$scope.selected_atb.report;
       $scope.selected_atb.changed=true;
       $scope.selected_test.changed = true;
       $scope.selected_isolation.changed = true;
     }
 
+    $scope.remove_atb = function(atb) {
+      if ($scope.selected_test.status >= 4) return;
+      $scope.selected_test.changed = true;
+      $scope.selected_isolation.changed = true;
+      if ($scope.selected_atb.delete) {
+        $scope.selected_atb.delete = false;
+        return;
+      }
+      $scope.selected_atb.delete=true;
+    }
+
+    $scope.atb_changed = function(atb) {
+      console.log("changed:"+ atb);
+      atb.changed=true;
+      $scope.selected_test.changed = true;
+      $scope.selected_isolation.changed = true;
+    }
+
+    $scope.atb_class = function(atb) {
+      if (atb.delete) return "atb_label_del";
+      return "atb_label";
+    }
+
     $scope.atb_report = function(atb) {
-      if (atb.report) return "glyphicon glyphicon-print";
+      if (atb.report) return "glyphicon glyphicon-check";
       else return "glyphicon glyphicon-unchecked";
     }
+
 
     $scope.testStatus = function(test) {
       switch (test.status) {
@@ -337,6 +365,8 @@ angular.module('microApp')
     }
 
     $scope.select_atb = function(atb) {
+      if ($scope.selected_test.status >= 4) return;
+
       if ($scope.selected_atb == null) {
         atb.selected=true;
         $scope.selected_atb=atb;
@@ -517,8 +547,9 @@ angular.module('microApp')
       $http.get(url).success(function(result) {
         var spe=result.data;
         var idx=-$scope.selected_test.isolations.length-1;
-        var iso_ins={specimen:spe, recurrent:false, resistance:null, comments:"", ufc:"", id:idx, atbs:[], histo:[]};
+        var iso_ins={specimen:spe, recurrent:false, resistance:null, comments:"", ufc:"", id:idx, atbs:[], histo:[], changed:true};
         $scope.selected_test.isolations.push(iso_ins);
+        $scope.selected_test.changed=true;
       });
     }
 
@@ -563,6 +594,7 @@ angular.module('microApp')
 
 
     $scope.selPanelATB = function() {
+      if ($scope.selected_test.status >= 4) return;
       ModalService.showModal({
         templateUrl:"views/selPanelATB.html",
         controller: "PanelATBsCtrl"
@@ -597,6 +629,7 @@ angular.module('microApp')
     }
 
     $scope.selATB = function() {
+      if ($scope.selected_test.status >= 4) return;
       ModalService.showModal({
         templateUrl:"views/selATB.html",
         controller: "ATBsCtrl"
@@ -755,6 +788,11 @@ angular.module('microApp')
       });
     }
 
+    $scope.deleteIsolation = function() {
+      if ($scope.selected_test.status >= 4) return;
+      $scope.selected_test.changed = true;
+      $scope.selected_isolation.delete=true;
+    }
 
     $scope.getTest = function(testcode) {
       for (var i=0; i < $scope.sample.tests.length; i++) {

@@ -82,7 +82,7 @@ body {
   }
   /* Space out the masthead */
   .header {
-    margin-bottom: 30px;
+    margin-bottom: 40px;
   }
   /* Remove the bottom border on the jumbotron for visual effect */
   .jumbotron {
@@ -97,6 +97,12 @@ body {
 .atb_label {
   font-size: 12px;
   font-style: italic;
+}
+
+.atb_label_del {
+  font-size: 12px;
+  font-style: italic;
+  text-decoration: line-through;
 }
 
 .atb {
@@ -176,7 +182,7 @@ textarea {
 
 .order-body {
   position: absolute;
-  top:180px;
+  top:205px;
   z-index:-1;
   background-color: #f5f5f5;
 }
@@ -224,6 +230,28 @@ div.header-content {
 
 td.header-box {
   width: 300px;
+}
+
+td.header-content2 {
+  padding:5px;
+  width:530px;
+  text-align: left;
+  color: #0d3349;
+  background-color: white;
+  border: 3px;
+  border-color: black;
+  white-space: nowrap;
+}
+
+div.header-content2 {
+  width:525px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+td.header-box2 {
+  width: 600px;
 }
 
 div.tabset-header {

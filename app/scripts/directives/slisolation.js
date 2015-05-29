@@ -16,7 +16,7 @@ angular.module('microApp')
   })
   .controller('IsolationCtrl', function($rootScope, $scope) {
     console.log("IsolationCtrl "+$scope.isolation.specimen.code);
-    $scope.isolation.changed=false;
+    // $scope.isolation.changed=false;
     $scope.$watch('isolation.ufc', function(newValue, oldValue) {
       if (newValue != oldValue) {
         $scope.isolation.changed = true;

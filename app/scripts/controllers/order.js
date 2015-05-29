@@ -26,6 +26,9 @@ angular.module('microApp')
         $scope.order=data.data;
 
         Array.prototype.forEach.call($scope.order.samples, function(sample) {
+          if (sampleidee == "*") {
+            sampleidee=sample.idee;
+          }
           if (sample.idee == sampleidee) {
             sample.active=true;
           }
