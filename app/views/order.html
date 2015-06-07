@@ -111,17 +111,27 @@
           <table>
             <tr>
               <td  class="header-label"><div class="header-ĺabel">Hosma Obs.</div></td>
-              <td class="header-content2"><div class="header-content2">{{order.sl_order.hosma_obs}}</div></td>
+              <td class="header-content2"><div class="header-content2" ng-click="showNote(order.sl_order.hosma_obs)">{{order.sl_order.hosma_obs}}</div></td>
             </tr>
           </table>
         </div>
       </td>
-      <td colspan="2">
+      <td>
         <div style="padding:5px">
           <table>
             <tr>
               <td class="header-label"><div class="header-ĺabel">Observaciones</div></td>
-              <td class="header-content2"><div class="header-content2">{{order.sl_order.comments}}</div></td>
+              <td class="header-content"><div class="header-content" ng-click="showNote(order.sl_order.comments)">{{order.sl_order.comments}}</div></td>
+            </tr>
+          </table>
+        </div>
+      </td>
+      <td>
+        <div style="padding:5px">
+          <table>
+            <tr>
+              <td class="header-label"><div class="header-ĺabel">Obs.sección</div></td>
+              <td class="header-content"><div class="header-content" ng-click="showNote(order.obs_micro)">{{order.obs_micro}}</div></td>
             </tr>
           </table>
         </div>

@@ -8,7 +8,8 @@
  * Controller of the microApp
  */
 angular.module('microApp')
-  .controller('OrderCtrl', ['$rootScope', '$scope', '$state', '$http', '$stateParams', 'sl_server', function ($rootScope, $scope, $state, $http, $stateParams, sl_server) {
+  .controller('OrderCtrl', ['$rootScope', '$scope', '$state', '$http', '$stateParams', 'ModalService', 'sl_server',
+    function ($rootScope, $scope, $state, $http, $stateParams, ModalService, sl_server) {
     var orderid=$stateParams.orderid;
     var sampleidee=$stateParams.sampleidee;
     $scope.user=$stateParams.user;
@@ -133,5 +134,25 @@ angular.module('microApp')
       }
       return "tab-header"
     }
+
+    $scope.showNote = function(comment) {
+      console.log("note: "+comment);
+      $scope.title = "Observaciones";
+      $scope.comment = comment;
+
+      ModalService.showModal({
+        templateUrl:"views/showNote.html",
+        controller: "ShowNoteCtrl",
+        inputs: {
+          comment: $scope.comment,
+          title: $scope.title
+        }
+
+      }).then(function(modal) {
+        modal.element.modal();
+
+      })
+    }
+
 
   }]);

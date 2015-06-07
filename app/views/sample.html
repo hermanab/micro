@@ -7,8 +7,9 @@
     <button class="btn-default" ng-click="viewReport()">Ver informe</button>
     <button class="btn-default" ng-click="save()">Guardar</button>
   </div>
-  <div class="alert alert-danger" ng-show="sample.nc_desc != ''">{{sample.nc_desc}}</div>
+  <div class="alert alert-warning" ng-show="sample.nc_desc != ''">{{sample.nc_desc}}</div>
   <div class="alert alert-info" ng-show="sample.comments != ''">{{sample.comments}}</div>
+  <div class="alert alert-danger" ng-show="nouser">Usuario no definido</div>
 
   <sl-test ng-repeat="test in sample.tests"></sl-test>
 
@@ -52,12 +53,24 @@
         Observaciones
       </a>
     </li>
+    <li>
+      <a class="pointer" role="menuitem" tabindex="1"
+         ng-click="showNote('Hola Alfredo')">
+        Muestra nota
+      </a>
+    </li>
   </ul>
 </div>
 
 
 <div class="dropdown position-fixed" id="menu-isolation">
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a class="pointer" role="menuitem" tabindex="1"
+         ng-click="changeSpecimen()">
+        Cambiar organismo
+      </a>
+    </li>
     <li>
       <a class="pointer" role="menuitem" tabindex="1"
          ng-click="selPanelATB()">

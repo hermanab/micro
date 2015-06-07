@@ -13,7 +13,14 @@ angular.module('microApp')
   .controller('SampleCtrl', ['$scope', '$state', '$http', '$stateParams', '$location', '$anchorScroll', 'hotkeys','ModalService', 'focus', 'sl_server',
     function ($scope, $state, $http, $stateParams, $location, $anchorScroll, hotkeys, ModalService, focus, sl_server) {
       var sampleidee=$stateParams.sampleidee;
-      // $scope.user = $stateParams.user;
+      $scope.user = $stateParams.user;
+      console.log("User:"+$stateParams.user);
+      if (typeof $scope.user == 'undefined') {
+        $scope.nouser=true;
+      }
+      else {
+        $scope.nouser=false;
+      }
       var url=sl_server+'/wksanal/get_sample/?post={"sampleidee":"$sampleidee", "mode":1}';
       url=url.replace("$server", sl_server);
       url=url.replace("$sampleidee", sampleidee);
@@ -47,7 +54,7 @@ angular.module('microApp')
         console.log(url);
 
         var post={work_sess_user:$scope.user, sample:$scope.sample};
-
+        console.log(post);
         $http.post(url, post)
           .success(function(data) {
             // $scope.refresh();
@@ -188,9 +195,9 @@ angular.module('microApp')
       })
       .add({
         combo: '-',
-        description: 'Borrar antibiótico',
+        description: '- resistencia',
         callback: function() {
-          $scope.change_atb_sens2("");
+          $scope.change_atb_sens2("-");
           $scope.next_atb();
         }
       })
@@ -279,9 +286,11 @@ angular.module('microApp')
         case 'I':
               atb.sens='SDD';
               break;
+        case 'SDD':
+              atb.sens='-';
+              break;
         default:
               atb.sens='S';
-              break;
               break;
       }
       $scope.selected_test.changed = true;
@@ -524,6 +533,22 @@ angular.module('microApp')
       }
     };
 
+    $scope.changeSpecimen = function() {
+      if ($scope.selected_test.status >= 4) return;
+      ModalService.showModal({
+        templateUrl:"views/selSpecimen.html",
+        controller: "SpecimenCtrl"
+      }).then(function(modal) {
+        modal.element.modal();
+        modal.close.then(function(result) {
+          $scope.specimen = result;
+          if (result) {
+            $scope.changeSpecimenApi(result);
+          }
+        });
+      });
+    }
+
     $scope.selSpecimen = function() {
       if ($scope.selected_test.status >= 4) return;
       ModalService.showModal({
@@ -550,6 +575,17 @@ angular.module('microApp')
         var iso_ins={specimen:spe, recurrent:false, resistance:null, comments:"", ufc:"", id:idx, atbs:[], histo:[], changed:true};
         $scope.selected_test.isolations.push(iso_ins);
         $scope.selected_test.changed=true;
+      });
+    }
+
+    $scope.changeSpecimenApi = function(spename) {
+      var url=sl_server+'/wksanal/load_specimen/?post={"specimen":"$specimen$"}';
+      url=url.replace("$specimen$", spename);
+      console.log(url);
+      $http.get(url).success(function(result) {
+        var spe=result.data;
+        $scope.selected_isolation.specimen=spe;
+        $scope.selected_isolation.changed=true;
       });
     }
 
@@ -727,6 +763,26 @@ angular.module('microApp')
           });
         });
       }
+
+      $scope.showNote = function(comment) {
+        console.log("note: "+comment);
+        $scope.title = "Observaciones";
+        $scope.comment = comment;
+
+        ModalService.showModal({
+          templateUrl:"views/showNote.html",
+          controller: "ShowNoteCtrl",
+          inputs: {
+            comment: $scope.comment,
+            title: $scope.title
+          }
+
+        }).then(function(modal) {
+          modal.element.modal();
+
+        })
+      }
+
 
       $scope.selTest = function() {
         ModalService.showModal({
